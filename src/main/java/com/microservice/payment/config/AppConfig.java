@@ -2,10 +2,8 @@ package com.microservice.payment.config;
 
 public class AppConfig {
 
-    public static final String MERCHANT_ID = "RHLBnF07039627707073";
+    public static final String MERCHANT_ID = "rzp_test_U7s6fgtAM8sT4m";
 
-    public static final String MERCHANT_KEY = "BXWmXOntYo858BTG";
-
-    public static final String WEBSITE = "WEBSTAGING";
+    public static final String MERCHANT_KEY = "nRKx33f067I12GJGlmtTUtg0";
 
 }
