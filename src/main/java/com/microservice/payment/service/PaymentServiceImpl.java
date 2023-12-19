@@ -1,11 +1,11 @@
 package com.microservice.payment.service;
 
-import com.microservice.payment.config.AppConfig;
 import com.microservice.payment.constant.AppConstant;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.UUID;
@@ -13,10 +13,16 @@ import java.util.UUID;
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
+    @Value("${razorpay.keyId}")
+    private String merchantKeyId;
+
+    @Value("${razorpay.keySecret}")
+    private String merchantKeySecret;
+
     @Override
     public Order createOrder(Map<String, Object> paymentData) throws RazorpayException {
 
-        RazorpayClient client = new RazorpayClient(AppConfig.MERCHANT_ID, AppConfig.MERCHANT_KEY);
+        RazorpayClient client = new RazorpayClient(merchantKeyId, merchantKeySecret);
 
         String receiptId = getReceiptId();
         double amount = Double.parseDouble(paymentData.get("amount").toString());
