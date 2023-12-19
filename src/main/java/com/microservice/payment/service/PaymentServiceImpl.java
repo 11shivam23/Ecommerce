@@ -29,6 +29,9 @@ public class PaymentServiceImpl implements PaymentService{
         jsObj.put("receipt", receiptId);
 
         Order order = client.orders.create(jsObj);
+
+        //save it to DB
+
         return order;
     }
 
