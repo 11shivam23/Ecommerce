@@ -12,7 +12,7 @@ import java.util.Map;
 public class PaymentController {
 
     @Autowired
-    PaymentService paymentService;
+    private PaymentService paymentService;
 
     @PostMapping("/createPayment")
     @ResponseBody

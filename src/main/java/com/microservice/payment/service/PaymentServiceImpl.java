@@ -1,10 +1,12 @@
 package com.microservice.payment.service;
 
 import com.microservice.payment.constant.AppConstant;
+import com.microservice.payment.repository.PaymentRepository;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Map;
@@ -18,6 +20,9 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Value("${razorpay.keySecret}")
     private String merchantKeySecret;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public Order createOrder(Map<String, Object> paymentData) throws RazorpayException {
@@ -37,6 +42,7 @@ public class PaymentServiceImpl implements PaymentService{
         Order order = client.orders.create(jsObj);
 
         //save it to DB
+        paymentRepository.saveOrder(order.get("id").toString(), order.toString());
 
         return order;
     }
